@@ -1,0 +1,78 @@
+:root {
+  --color-highlight: #005ca9;
+  --color-highlight-bg: #e5f2fc;
+  --color-on-highlight: #ffffff;
+  --color-neutral-bg1: #ffffff;
+  --color-neutral-bg2: #f0f2f2;
+  --color-neutral-bg3: #e4e8e9;
+  --color-on-neutral-1: #22292e;
+  --color-on-neutral-2: #525f66;
+  --color-on-neutral-3: #64747a;
+  --color-accent-bg: #ffefd6;
+  --color-accent: #c45c26;
+  --color-danger: #b22c2c;
+  --color-danger-bg: #fbebeb;
+  --color-success: #1b7a4e;
+  --color-success-bg: #e6f5ec;
+  --color-warning: #9a6b00;
+  --color-warning-bg: #fff6db;
+
+  --font-display: "CAIXA Std", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --radius-pill: 1000px;
+  --radius-md: 8px;
+  --radius-sm: 4px;
+
+  --space-quark: 4px;
+  --space-nano: 8px;
+  --space-micro: 12px;
+  --space-tiny: 16px;
+  --space-smaller: 24px;
+  --space-small: 32px;
+  --space-medium: 40px;
+
+  --shell-header: 64px;
+  --shell-nav: 280px;
+  --shell-home-visual: 500px;
+  --shell-rail: 320px;
+  --shadow-none: none;
+
+  color: var(--color-on-neutral-1);
+  background: var(--color-neutral-bg2);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: var(--color-highlight);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}

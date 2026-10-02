@@ -1,0 +1,7 @@
+.tools/
+node_modules/
+dist/
+.DS_Store
+*.local
+web/node_modules/
+web/dist/
