@@ -1,6 +1,9 @@
 import { useEffect, useId, useState } from "react";
 import {
+  ONBOARDING_OBJECTIVE,
   ONBOARDING_STEPS,
+  ONBOARDING_SUBTITLE,
+  ONBOARDING_TITLE,
   markOnboardingSeen,
   type OnboardingStep,
 } from "../data/onboarding";
@@ -87,11 +90,15 @@ export function OnboardingTour({
       >
         <header className="onboarding__header">
           <div>
-            <p className="status-banner__label">Uso do crédito · Jornada Private</p>
-            <h2 id={titleId}>Onde as melhorias foram aplicadas</h2>
-            <p className="muted">
-              Um tour navegável pelas 12 oportunidades do quadro — do “como é
-              hoje” ao que você encontra neste protótipo.
+            <h2 id={titleId}>{ONBOARDING_TITLE}</h2>
+            <p className="muted">{ONBOARDING_SUBTITLE}</p>
+            <p className="muted onboarding__legend">
+              <span className="onboarding__legend-item onboarding__legend-item--before">
+                Como é hoje
+              </span>
+              <span className="onboarding__legend-item onboarding__legend-item--after">
+                Melhoria / oportunidade
+              </span>
             </p>
           </div>
           <button type="button" className="btn btn--ghost" onClick={finish}>
@@ -122,7 +129,9 @@ export function OnboardingTour({
             <span className="onboarding__number">{step.number}</span>
             <div>
               <h3>{step.title}</h3>
-              <p className="onboarding__highlight">{step.highlight}</p>
+              {step.badge && (
+                <p className="onboarding__highlight">{step.badge}</p>
+              )}
             </div>
             <span className="onboarding__counter">
               {index + 1} / {total}
@@ -135,8 +144,16 @@ export function OnboardingTour({
               <p>{step.before}</p>
             </article>
             <article className="onboarding__card onboarding__card--after">
-              <p className="onboarding__card-label">Melhoria aplicada</p>
-              <p>{step.improvement}</p>
+              <p className="onboarding__card-label">Melhoria / oportunidade</p>
+              {step.improvements.length === 1 ? (
+                <p>{step.improvements[0]}</p>
+              ) : (
+                <ul className="onboarding__bullets">
+                  {step.improvements.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              )}
             </article>
           </div>
 
@@ -156,14 +173,17 @@ export function OnboardingTour({
         </div>
 
         <footer className="onboarding__footer">
-          <button
-            type="button"
-            className="btn btn--ghost"
-            onClick={goPrev}
-            disabled={isFirst}
-          >
-            Anterior
-          </button>
+          <div className="onboarding__footer-main">
+            <p className="onboarding__objective">{ONBOARDING_OBJECTIVE}</p>
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={goPrev}
+              disabled={isFirst}
+            >
+              Anterior
+            </button>
+          </div>
           <div className="onboarding__footer-actions">
             {!isLast && (
               <button type="button" className="btn-link" onClick={finish}>

@@ -5,14 +5,20 @@ export interface OnboardingStep {
   number: string;
   title: string;
   before: string;
-  improvement: string;
+  improvements: string[];
   where: string;
   whereLabel: string;
   targetView?: ViewId;
-  highlight?: string;
+  badge?: string;
 }
 
-export const ONBOARDING_STORAGE_KEY = "uso-credito-onboarding-seen-v1";
+export const ONBOARDING_STORAGE_KEY = "uso-credito-onboarding-seen-v2";
+
+export const ONBOARDING_TITLE = "USO DO CRÉDITO — JORNADA PRIVATE";
+export const ONBOARDING_SUBTITLE =
+  "Como é hoje e quais melhorias/oportunidades devem ser construídas";
+export const ONBOARDING_OBJECTIVE =
+  "OBJETIVO: Reduzir esforço, antecipar orientações e dar previsibilidade ao cliente e ao gerente durante toda a jornada.";
 
 export const ONBOARDING_STEPS: OnboardingStep[] = [
   {
@@ -20,156 +26,178 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     number: "01",
     title: "Preparação",
     before:
-      "Regras, documentos e custos apareciam só no meio do processo, gerando dúvidas e retrabalho.",
-    improvement:
-      "Passo a passo do uso do crédito, regras de documentação, cartilhas por produto e chatbot de dúvidas rápidas.",
+      "Cliente e gerente iniciam sem uma visão completa. Regras, custos, documentos e bens aceitos são descobertos durante o processo.",
+    improvements: [
+      "Disponibilização de um passo a passo sobre o uso do crédito e as principais regras de documentação.",
+      "Inclusão de uma cartilha com orientações sobre o processo.",
+      "Inclusão de um bot para suporte rápido e esclarecimento de dúvidas.",
+    ],
     where: "Etapa Orientações + botão flutuante Dúvidas rápidas + Central de ajuda.",
     whereLabel: "Ver orientações",
     targetView: "preparation",
-    highlight: "Cartilhas contextuais e assistente flutuante",
   },
   {
     id: "identificacao",
     number: "02",
     title: "Identificação",
     before:
-      "O cliente Private não via com clareza quem acompanhava a solicitação.",
-    improvement:
-      "Experiência segmentada com o nome do gerente em evidência quando ele conduz a jornada.",
-    where: "Home (caminho do gerente), cotas, confirmação e acompanhamento — card do gerente Ricardo Almeida.",
+      "O cliente não é identificado automaticamente como Private dentro da plataforma, dificultando o direcionamento para a jornada diferenciada.",
+    improvements: [
+      "Identificação do cliente Private na plataforma.",
+      "Direcionamento para uma experiência de segmento.",
+      "Deixar mais claro quem vai acompanhar o processo em nome do cliente.",
+    ],
+    where:
+      "Home (caminho do gerente), cotas, confirmação e acompanhamento — card do gerente.",
     whereLabel: "Ir para o início",
     targetView: "hub",
-    highlight: "Nome do gerente visível na jornada",
   },
   {
     id: "abertura",
     number: "03",
     title: "Abertura do processo",
     before:
-      "Documentos sem sinalização de validade e pouca clareza sobre o responsável.",
-    improvement:
-      "Validade dos documentos em destaque, leitura assistida (OCR + validação) e pré-visualização do arquivo enviado.",
-    where: "Etapa Documentos — status de validade, análise e modal de visualização.",
+      "A identificação do gerente responsável e o direcionamento das avisos de pendências não ficam claros durante a solicitação.",
+    improvements: [
+      "Maior clareza sobre o gerente responsável pelo acompanhamento.",
+      "Sinalizações nos documentos que possuem prazo de validade ou regras específicas.",
+      "Leitura automática de documentos — OCR + IA validação.",
+      "Validação no momento do envio (Opção do cliente visualizar o doc inserido).",
+    ],
+    where:
+      "Etapa Documentos — status de validade, análise e modal de visualização.",
     whereLabel: "Ver documentos",
     targetView: "documents",
-    highlight: "Validade + OCR + visualizar documento",
   },
   {
     id: "regras-tokens",
     number: "04",
     title: "Regras e tokens",
     before:
-      "Tokens e biometria podiam interromper o fluxo sem necessidade em todos os casos.",
-    improvement:
-      "Neste protótipo, o acesso à jornada ocorre sem barreiras extras de token — foco no fluxo contínuo do uso do crédito.",
+      "O acesso ao Workflow exige token ou biometria, gerando atrito mesmo quando a validação reforçada pode não ser necessária.",
+    improvements: [
+      "Simplificação do uso de token ou biometria ou retirada do recurso. Analisar os critérios de risco e segurança.",
+    ],
     where: "Entrada pelo Início, sem etapa intermediária de token.",
     whereLabel: "Ir para o início",
     targetView: "hub",
-    highlight: "Fluxo direto, sem fricção desnecessária",
   },
   {
     id: "tarifas",
     number: "05",
     title: "Comunicação das tarifas",
     before:
-      "Tarifas e débitos na carta apareciam de forma dispersa e pouco previsível.",
-    improvement:
-      "Valores e tarifas centralizados, estimativa clara e novas formas de pagamento: Pix e cartão de crédito, além de carta e boleto.",
+      "As tarifas, os valores estimados e os débitos realizados na carta de crédito não são apresentados de forma simples e centralizada.",
+    improvements: [
+      "Apresentação mais clara das tarifas, dos valores estimados e dos possíveis débitos na carta de crédito.",
+      "Possibilidade de outras formas de pagamento.",
+      "API para cálculo prévio dos valores.",
+    ],
     where: "Etapa Custos — valor das tarifas, composição e opções de pagamento.",
     whereLabel: "Ver custos",
     targetView: "costs",
-    highlight: "Pix, cartão, boleto e desconto na carta",
   },
   {
     id: "vistoria",
     number: "06",
     title: "Vistoria",
     before:
-      "Agendamento limitado e pouca diferenciação por perfil de cliente.",
-    improvement:
-      "Etapa de vistoria na jornada, com espaço para opções de agenda e acompanhamento do status.",
+      "Mais opções de datas e horários, principalmente para vistorias de veículos pesados.",
+    improvements: [
+      "Ampliação das opções de datas e horários.",
+      "Mais facilidade para realizar o agendamento.",
+      "Analisar a possibilidade de SLA diferenciado.",
+      'Avaliar a possibilidade de dispensar a vistoria para clientes que utilizam o crédito com frequência e que são clientes "confiáveis".',
+    ],
     where: "Etapa Vistoria na jornada digital.",
     whereLabel: "Ver vistoria",
     targetView: "inspection",
-    highlight: "Vistoria integrada à jornada",
   },
   {
     id: "tracking",
     number: "07",
     title: "Tracking das etapas",
     before:
-      "Era difícil saber o que já foi concluído e o que vem a seguir.",
-    improvement:
-      "Acompanhamento visual com etapas concluídas, etapa atual e próximas — no detalhe da solicitação e na navegação lateral.",
+      "A comunicação das etapas do bem, cliente e vendedor não tem clareza sobre próximas etapas, responsáveis e prazos.",
+    improvements: [
+      "Visualização das etapas concluídas e dos próximos passos de acompanhamento.",
+    ],
     where: "Minhas solicitações + detalhe do uso do crédito (timeline).",
     whereLabel: "Ver solicitações",
     targetView: "requests",
-    highlight: "Timeline e status por etapa",
   },
   {
     id: "acionamentos",
     number: "08",
-    title: "Central de acionamentos",
+    title: "Central de acionamentos / Acompanhamento do processo",
     before:
-      "Pendências espalhadas e comunicação pouco direcionada.",
-    improvement:
-      "Cards com ação necessária, notificações e status claros no acompanhamento — o que falta fazer fica em evidência.",
-    where: "Home (Acompanhe suas solicitações), Minhas solicitações e sino de notificações.",
+      "Comunicação de pendências e ações necessárias ao cliente e ao economiário.",
+    improvements: [
+      "Comunicação direcionada: mensagens que são alinhadas às necessidades do cliente/economiário serem enviadas pelo canal de maior aderência (Whatsapp), considerando o responsável pelo acompanhamento do processo.",
+      "Central de acionamentos: reunir em um único lugar de forma visível todas as pendências que exigem ação do cliente/economiário.",
+    ],
+    where:
+      "Home (Acompanhe suas solicitações), Minhas solicitações e sino de notificações.",
     whereLabel: "Ver solicitações",
     targetView: "requests",
-    highlight: "Pendências e notificações centralizadas",
   },
   {
     id: "pagamento-bem",
     number: "09",
     title: "Pagamento do bem",
     before:
-      "Espera longa para ordens de pagamento, especialmente em fins de semana.",
-    improvement:
-      "Etapa de pagamento refletida no tracking da solicitação, com status e previsibilidade do andamento.",
+      "As ordens de pagamento são processadas apenas uma vez ao dia, aumentando o tempo de espera, especialmente na sexta-feira.",
+    improvements: [
+      "Possibilidade de ampliar a frequência das ordens de pagamento.",
+      "Redução do tempo de espera, principalmente para solicitações finalizadas às sextas-feiras.",
+    ],
     where: "Timeline no detalhe da solicitação (etapa Pagamento).",
     whereLabel: "Ver solicitações",
     targetView: "requests",
-    highlight: "Pagamento visível no acompanhamento",
   },
   {
     id: "comprovante",
     number: "10",
     title: "Comprovante de pagamento",
     before:
-      "Comprovante só por e-mail, fora do fluxo.",
-    improvement:
-      "Comprovante disponível para download dentro do próprio acompanhamento, quando a solicitação está concluída.",
+      "O comprovante é enviado por e-mail após a sensibilização de pagamento, sem consulta imediata no Workflow.",
+    improvements: [
+      "Disponibilização do comprovante diretamente no Workflow.",
+    ],
     where: "Detalhe da solicitação concluída — baixar comprovante.",
     whereLabel: "Ver solicitações",
     targetView: "requests",
-    highlight: "Download no fluxo digital",
   },
   {
     id: "novas-solicitacoes",
     number: "11",
     title: "Novas solicitações",
+    badge: "OPORTUNIDADE",
     before:
-      "Documentos válidos precisavam ser reenviados a cada solicitação.",
-    improvement:
-      "Reaproveitamento de documentos ainda válidos (opt-in) e conta para sobra de crédito / reembolso já na etapa de custos.",
+      "Ao retornar à esteira, o cliente precisa reenviar toda a documentação, inclusive documentos já validados e ainda vigentes.",
+    improvements: [
+      "Reaproveitamento de documentos ainda válidos.",
+      "Solicitação apenas dos documentos vencidos.",
+      "Clique de aceite.",
+    ],
     where: "Documentos (reuso) + Custos (conta para depósito).",
     whereLabel: "Ver custos",
     targetView: "costs",
-    highlight: "Reuso de docs + conta de reembolso",
   },
   {
     id: "suporte",
     number: "12",
     title: "Suporte",
-    before:
-      "Dúvidas e pendências sem um ponto único de apoio no canal digital.",
-    improvement:
-      "Central de ajuda em página dedicada, tooltips com link para FAQ e chatbot flutuante para dúvidas rápidas.",
+    badge: "Novo - Em andamento",
+    before: "Apoio a REDE Private (Daiane e Fabiana).",
+    improvements: [
+      "Acompanhamento mais proativo durante a jornada.",
+      "Antecipação de possíveis pendências e apoio ao cliente e ao gerente até a conclusão.",
+      "Acionamentos por TEAMS para solicitação de apoio.",
+    ],
     where: "Botão ? no header, ⓘ nas tarifas e assistente Dúvidas rápidas.",
     whereLabel: "Abrir Central de ajuda",
     targetView: "help",
-    highlight: "Ajuda contextual + chatbot",
   },
 ];
 
